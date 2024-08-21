@@ -30,25 +30,25 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Проверяем репозиторий на наличие изменений
-        uses: actions/checkout@v2
+    - name: Проверяем репозиторий на наличие изменений
+      uses: actions/checkout@v2
 
-      - name: Установка Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
+    - name: Установка Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
 
-      -name: Установка зависимостей
-        run: pip install -r requirements-dev.txt
+    - name: Установка зависимостей
+      run: pip install -r requirements-dev.txt
 
-      -name: Линтинг кода
-        run: flake8 django_testing --exclude migrations --ignore E501
+    - name: Линтинг кода
+      run: flake8 django_testing --exclude migrations --ignore E501
 
-      -name: Тестирование
-        run: pytest
+    - name: Тестирование
+      run: pytest
         env:
           PG_NAME: ${{ env.PG_NAME }}
-            PG_USER: ${{ env.PG_USER }}
-            PG_PASSWORD: ${{ env.PG_PASSWORD }}
-            PG_HOST: ${{ env.PG_HOST }}
-            PG_PORT: ${{ env.PG_PORT }}
+          PG_USER: ${{ env.PG_USER }}
+          PG_PASSWORD: ${{ env.PG_PASSWORD }}
+          PG_HOST: ${{ env.PG_HOST }}
+          PG_PORT: ${{ env.PG_PORT }}
